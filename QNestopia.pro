@@ -26,15 +26,37 @@ DEFINES += _UNICODE
 
 # Windows SDK(v7.1A)
 INCLUDEPATH += $$PWD/sdk/sdk_win/include
-LIBS        += -L$$PWD/sdk/sdk_win/lib/x86 -luser32 -lole32 -lgdi32 -lcomdlg32 -loleaut32 -ladvapi32
+LIBS        += -L$$PWD/sdk/sdk_win/lib/x86
+LIBS        += user32.lib ole32.lib gdi32.lib comdlg32.lib oleaut32.lib advapi32.lib ole32.lib gdi32.lib comdlg32.lib oleaut32.lib advapi32.lib
 
 # For DirectX9.0C SDK
 INCLUDEPATH += $$PWD/sdk/sdk_dx/include
 LIBS        += -L$$PWD/sdk/sdk_dx/lib/x86
 
-LIBS        += -L$$PWD/lib -lzlibstat
+LIBS        += -L$$PWD/lib zlibstat.lib
 
 RC_FILE += source/win32/resource/QNestopia.rc
+
+CONFIG += static
+
+QMAKE_CFLAGS_RELEASE    -= -MD
+QMAKE_CFLAGS_DEBUG      -= -MDd
+
+QMAKE_CFLAGS_RELEASE    += -MT
+QMAKE_CFLAGS_DEBUG      += -MTd
+
+QMAKE_CXXFLAGS_RELEASE  -= -MD
+QMAKE_CXXFLAGS_DEBUG    -= -MDd
+
+QMAKE_CXXFLAGS_RELEASE  += -MT
+QMAKE_CXXFLAGS_DEBUG    += -MTd
+
+# Output CFLAGS/CXXFLAGS for project file debug
+#message("QMAKE_CFLAGS_RELEASE   : $$QMAKE_CFLAGS_RELEASE");
+#message("QMAKE_CFLAGS_DEBUG     : $$QMAKE_CFLAGS_DEBUG");
+#message("QMAKE_CXXFLAGS_RELEASE : $$QMAKE_CXXFLAGS_RELEASE");
+#message("QMAKE_CXXFLAGS_DEBUG   : $$QMAKE_CXXFLAGS_DEBUG");
+
 
 SOURCES += \
     source/core/api/NstApiBarcodeReader.cpp \
